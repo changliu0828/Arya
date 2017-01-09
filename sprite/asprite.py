@@ -21,14 +21,12 @@ class ASprite(pygame.sprite.Sprite):
 		self.init_image = self.image
 		
 		self.rect = self.image.get_rect()
-		self.rect.center = (pos[0] * const.screen.SCREEN_WIDTH , pos[1] * const.screen.SCREEN_HEIGHT)
+		self.rect.center = [i*j for i,j in zip(pos, const.screen.SCREEN_SIZE)]
 		self.kinematic = movement.kinematic.Kinematic()
 		self.kinematic.position = np.asarray(self.rect.center, float)
 		self.steering = movement.steering.Steering()
 
 	def update(self):
-		#print("A", self.kinematic.orientation * 180 / np.pi)
-		#self.image = pygame.transform.rotate(self.init_image, self.kinematic.orientation * 180 / np.pi)
+		self.image = pygame.transform.rotate(self.init_image, self.kinematic.orientation * 180 / np.pi)
 		self.rect = self.image.get_rect()
 		self.rect.center = self.kinematic.position
-		pass

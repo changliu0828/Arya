@@ -9,12 +9,10 @@ import numpy
 
 if __name__ == '__main__':
 	pygame.init()
-	screen = pygame.display.set_mode((const.screen.SCREEN_WIDTH, const.screen.SCREEN_HEIGHT), 0, const.screen.SCREEN_DEPTH)
+	screen = pygame.display.set_mode(const.screen.SCREEN_SIZE, 0, const.screen.SCREEN_DEPTH)
 	clock = pygame.time.Clock()
-	
 	drop = Drop(const.color.RED, (0.5, 0.5))
 	airplane = Airplane(const.color.BLACK, (0.3, 0.3))
-
 	group = pygame.sprite.Group()
 	group.add(drop)
 	group.add(airplane)
@@ -24,8 +22,9 @@ if __name__ == '__main__':
 		event = pygame.event.poll()
 		if event.type == QUIT:
 			exit()
-		
 		key = pygame.key.get_pressed()
+
+		collide = pygame.sprite.collide_rect(drop,airplane)
 
 		group.update(key)
 		screen.fill(const.color.WHITE)
